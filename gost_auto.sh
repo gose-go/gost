@@ -23,18 +23,18 @@ nohup ./gost -L=relay+mwss://:8443 >> /var/log/gost_server.log 2>&1 &
 # 等待2秒确保服务端就绪
 sleep 2
 
-# 启动 1314 端口转发
+# 1
 nohup ./gost -L=tcp://:1314/156.245.239.142:1314 -F=relay+mwss://127.0.0.1:8443 >> /var/log/gost_client.log 2>&1 &
 
-# 启动 8888 端口转发
+# 2
 nohup ./gost -L=tcp://:8888/156.245.239.142:8888 -F=relay+mwss://127.0.0.1:8443 >> /var/log/gost_client.log 2>&1 &
 
-# 保持窗口运行，方便查看
+# Keep the window running for easy viewing
 exec bash
 '
 
 echo "==============================================="
-echo "部署完成！所有隧道已在 gost 窗口中启动。"
-echo "- 监听端口: 8443 (MWSS)"
-echo "- 转发端口: btc.f2pool.com:1314  和 ltc.f2pool.com:8888"
+echo "Deployment completed! All tunnels have been started in the gost window。"
+echo "- Listening port: 8443 (MWSS)"
+echo "- Forwarding port: btc.f2pool.com:1314 and ltc.f2pool.com:8888"
 echo "==============================================="
