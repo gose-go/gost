@@ -20,7 +20,7 @@ screen -dmS gost bash -c '
 # Monitor (8443)
 nohup ./gost -L=relay+mwss://:8443 >> /var/log/gost_server.log 2>&1 &
 
-# 等待2秒确保服务端就绪
+# Wait for 2 seconds
 sleep 2
 
 # 1
