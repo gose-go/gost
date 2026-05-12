@@ -1,23 +1,23 @@
 #!/bin/bash
 
-# 1. 安装 screen 和必要工具
+# 1. Install screen and necessary tools
 apt update && apt install -y screen wget
 
-# 2. 下载并解压 GOST
+# 2. Download and unzip GOST
 if [ ! -f "gost" ]; then
-    echo "正在下载 GOST..."
+    echo "Downloading GOST..."
     wget https://github.com/ginuerzh/gost/releases/download/v2.11.5/gost-linux-amd64-2.11.5.gz
     gzip gost-linux-amd64-2.11.5.gz -d
     mv gost-linux-amd64-2.11.5 gost
     chmod +x gost
 fi
 
-# 3. 提升系统高并发连接限制
+# 3. Increase system high concurrency connection limit
 ulimit -n 65535
 
-# 4. 在名为 "gost" 的 screen 窗口中执行所有任务
+# 4. Start gost
 screen -dmS gost bash -c '
-# 启动落地端监听 (8443)
+# Monitor (8443)
 nohup ./gost -L=relay+mwss://:8443 >> /var/log/gost_server.log 2>&1 &
 
 # 等待2秒确保服务端就绪
